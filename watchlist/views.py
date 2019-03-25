@@ -8,6 +8,7 @@ from .models import MovieData, WatchList
 from movie_watchlist.secret_settings import api_key
 
 
+@login_required
 def homepage(request):
     user_watchlists = WatchList.objects.filter(author=request.user)
     context = {
@@ -34,7 +35,7 @@ def homepage(request):
 
 @login_required
 def add_to_watchlist(request, watchlist):
-    current_watchlist = WatchList.objects.get(watchlist_name=watchlist, author=request.user)
+    current_watchlist = get_object_or_404(WatchList, watchlist_name=watchlist, author=request.user)
     movies_in_watchlist = MovieData.objects.filter(watchlist_name=current_watchlist).order_by('pk')
     context = {
         'movies': movies_in_watchlist,
@@ -79,3 +80,11 @@ def delete_movie(request, movie_id):
         movie.delete()
     return redirect('watchlist:add_to_watchlist', watchlist=movie.watchlist_name)
 
+
+@login_required
+def delete_watchlist(request, watchlist_id):
+    watchlist = get_object_or_404(WatchList, pk=watchlist_id)
+
+    if request.method == 'POST':
+        watchlist.delete()
+    return redirect('watchlist:homepage')

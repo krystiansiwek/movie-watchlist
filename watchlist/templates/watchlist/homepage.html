@@ -10,13 +10,15 @@
                 <input class="btn btn-outline-danger" type="submit" value="Create">
             </div>
         </div>
-    </form>
     <p class="h4">{{ user }} Watchlists</p>
     <ul class="list-group list-group-flush">
-    {% for watchlist in user_watchlists %}
-        <li class="list-group-item">
-            <a href="{% url 'watchlist:add_to_watchlist' watchlist %}" class="text-danger">{{ watchlist }}</a>
-        </li>
-    {% endfor %}
+        {% for watchlist in user_watchlists %}
+            <li class="list-group-item">
+                <a href="{% url 'watchlist:add_to_watchlist' watchlist %}" class="text-danger">{{ watchlist }}</a>
+                    <input type="submit" value="Delete" class="btn btn-outline-danger float-right"
+                           formaction="{% url 'watchlist:delete_watchlist' watchlist.id %}">
+            </li>
+        {% endfor %}
+    </form>
     </ul>
 {% endblock %}

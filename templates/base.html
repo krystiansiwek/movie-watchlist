@@ -19,6 +19,7 @@
 
 <body>
     <header class="site-header">
+        {% include 'includes/navbar.html' %}
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-danger" role="alert">
