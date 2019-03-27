@@ -1,0 +1,24 @@
+{% extends 'templates/base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        Create your watchlist:
+        <div class="input-group mb-3">
+            <input class="form-control" name="new_watchlist_name" type="text" placeholder="Watchlist name...">
+            <div class="input-group-append">
+                <input class="btn btn-outline-danger" type="submit" value="Create">
+            </div>
+        </div>
+    <p class="h4">{{ user }} Watchlists</p>
+    <ul class="list-group list-group-flush">
+        {% for watchlist in user_watchlists %}
+            <li class="list-group-item">
+                <a href="{% url 'watchlist:add_to_watchlist' watchlist %}" class="text-danger">{{ watchlist }}</a>
+                    <input type="submit" value="Delete" class="btn btn-outline-danger float-right"
+                           formaction="{% url 'watchlist:delete_watchlist' watchlist.id %}">
+            </li>
+        {% endfor %}
+    </ul>
+    </form>
+{% endblock %}

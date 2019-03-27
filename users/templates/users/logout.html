@@ -1,0 +1,6 @@
+{% extends 'templates/base.html' %}
+{% block content %}
+    <h3>Logged out!</h3>
+    <hr>
+    <p>You have been logged out. You can <a href="{% url 'users:login' %}" class="text-danger">log in again.</a></p>
+{% endblock %}

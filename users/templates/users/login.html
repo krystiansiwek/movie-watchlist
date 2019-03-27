@@ -13,7 +13,9 @@
     </form>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Need an account?<a class="ml-2" style="color: red;" href="{% url 'users:register' %}">Register now!</a>
+            Need an account?<a class="ml-2 text-danger" href="{% url 'users:register' %}">Register now!</a>
+            <br>
+            <a class="ml-2 text-danger" href="{% url 'users:password_reset' %}">Forgot password?</a>
         </small>
     </div>
 {% endblock %}
