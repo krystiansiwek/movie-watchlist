@@ -1,0 +1,5 @@
+<form method="POST">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Delete" name="delete_movie"
+           formaction="{% url 'watchlist:delete_movie' record.id %}">
+</form>

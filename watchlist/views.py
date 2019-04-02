@@ -3,7 +3,9 @@ import requests
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django_tables2 import RequestConfig
 
+from .tables import WatchlistTable
 from .models import MovieData, WatchList
 from movie_watchlist.secret_settings import api_key
 
@@ -41,9 +43,11 @@ def watchlists(request):
 @login_required
 def add_to_watchlist(request, watchlist):
     current_watchlist = get_object_or_404(WatchList, watchlist_name=watchlist, author=request.user)
-    movies_in_watchlist = MovieData.objects.filter(watchlist_name=current_watchlist).order_by('pk')
+    watchlist_table = WatchlistTable(MovieData.objects.filter(watchlist_name=current_watchlist))
+    RequestConfig(request).configure(watchlist_table)
     context = {
-        'movies': movies_in_watchlist,
+        'watchlist_table': watchlist_table,
+        'watchlist': current_watchlist
     }
     if request.method == 'POST':
         searched_title = request.POST.get('movie_title')
