@@ -33,7 +33,7 @@ def watchlists(request):
         else:
             new_watchlist = WatchList(author=request.user, watchlist_name=new_watchlist_name)
             new_watchlist.save()
-            return redirect('watchlist:add_to_watchlist', watchlist=new_watchlist_name)
+            return redirect('watchlist:watchlist_view', watchlist=new_watchlist_name)
 
     return render(request,
                   'watchlist/watchlists.html',
@@ -41,7 +41,7 @@ def watchlists(request):
 
 
 @login_required
-def add_to_watchlist(request, watchlist):
+def watchlist_view(request, watchlist):
     current_watchlist = get_object_or_404(WatchList, watchlist_name=watchlist, author=request.user)
     watchlist_table = WatchlistTable(MovieData.objects.filter(watchlist_name=current_watchlist))
     RequestConfig(request).configure(watchlist_table)
@@ -72,9 +72,7 @@ def add_to_watchlist(request, watchlist):
                                     movie_score=score)
             added_movie.save()
 
-        return render(request,
-                      'watchlist/add_to_watchlist.html',
-                      context)
+        return redirect('watchlist:watchlist_view', watchlist=added_movie.watchlist_name)
 
     return render(request,
                   'watchlist/add_to_watchlist.html',
@@ -87,7 +85,7 @@ def delete_movie(request, movie_id):
 
     if request.method == 'POST':
         movie.delete()
-    return redirect('watchlist:add_to_watchlist', watchlist=movie.watchlist_name)
+    return redirect('watchlist:watchlist_view', watchlist=movie.watchlist_name)
 
 
 @login_required
