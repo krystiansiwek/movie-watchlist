@@ -6,7 +6,4 @@ db.sqlite3
 /static
 .DS_Store
 .idea
-secret_settings.py
 venv
-media/profile_pics
-media/default.png

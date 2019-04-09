@@ -1,0 +1,4 @@
+django_tables2==2.0.6
+Django==2.2
+requests==2.21.0
+Pillow==6.0.0
