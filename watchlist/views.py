@@ -42,7 +42,9 @@ def watchlists(request):
 
 @login_required
 def watchlist_view(request, watchlist):
-    current_watchlist = get_object_or_404(WatchList, watchlist_name=watchlist, author=request.user)
+    current_watchlist = get_object_or_404(WatchList,
+                                          watchlist_name=watchlist,
+                                          author=request.user)
     watchlist_table = WatchlistTable(MovieData.objects.filter(watchlist_name=current_watchlist))
     RequestConfig(request).configure(watchlist_table)
     context = {
@@ -65,11 +67,13 @@ def watchlist_view(request, watchlist):
             title = json_data['Title']
             score = float(json_data['imdbRating'])
             premiere_year = int(json_data['Year'][:4])
+            genres = json_data['Genre']
 
             added_movie = MovieData(watchlist_name=current_watchlist,
                                     movie_title=title,
                                     movie_premiere_year=premiere_year,
-                                    movie_score=score)
+                                    movie_score=score,
+                                    movie_genres=genres)
             added_movie.save()
 
         return redirect('watchlist:watchlist_view', watchlist=added_movie.watchlist_name)

@@ -67,7 +67,6 @@ DATABASES = {
     }
 }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -98,3 +97,10 @@ STATIC_URL = '/static/'
 LOGIN_URL = 'users:login'
 
 LOGIN_REDIRECT_URL = 'watchlist:homepage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+

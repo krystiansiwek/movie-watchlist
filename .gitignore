@@ -1,9 +1,11 @@
 *.pyc
 *~
+*.png
 __pycache__
 myvenv
 db.sqlite3
 /static
 .DS_Store
 .idea
+secret_settings.py
 venv

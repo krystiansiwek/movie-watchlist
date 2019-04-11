@@ -17,6 +17,7 @@ class MovieData(models.Model):
     movie_title = models.CharField(max_length=250)
     movie_premiere_year = models.IntegerField('premiere year')
     movie_score = models.FloatField('score')
+    movie_genres = models.CharField(max_length=250)
 
     def __str__(self):
         return self.movie_title
